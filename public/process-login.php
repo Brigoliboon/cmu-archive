@@ -32,8 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // associated with the user for verification on subsequent visits
         }
         
-        // Redirect based on role
-        if ($user['UserRole'] == 'admin') {
+        // Redirect based on access level
+        if (isset($user['AccessLevelID']) && $user['AccessLevelID'] >= 4) {
             header("Location: ../admin/dashboard.php");
         } else {
             header("Location: index.php");

@@ -20,7 +20,7 @@ function logFileAccess($conn, $userId, $documentId, $accessTypeId) {
 // Function to get user by email
 function getUserByEmail($conn, $email) {
     $email = sanitize($conn, $email);
-    $sql = "SELECT * FROM user WHERE EmailAddress = '$email'";
+    $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
     
     if ($result && mysqli_num_rows($result) > 0) {
@@ -33,7 +33,7 @@ function getUserByEmail($conn, $email) {
 // Function to get user by ID
 function getUserById($conn, $userId) {
     $userId = (int)$userId;
-    $sql = "SELECT * FROM user WHERE UserID = $userId";
+    $sql = "SELECT * FROM users WHERE id = $userId";
     $result = mysqli_query($conn, $sql);
     
     if ($result && mysqli_num_rows($result) > 0) {
@@ -448,5 +448,14 @@ function getDocumentStatistics($conn) {
     }
     
     return $stats;
+}
+
+// Function to set user session
+function setUserSession($user) {
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
+    $_SESSION['user_email'] = $user['email'];
+    $_SESSION['user_role'] = $user['role'];
+    $_SESSION['AccessLevelID'] = $user['AccessLevelID'];
 }
 ?>

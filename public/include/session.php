@@ -14,7 +14,8 @@ function isLoggedIn() {
 
 // Function to check if user is admin
 function isAdmin() {
-    return isLoggedIn() && $_SESSION['user_role'] == 'admin';
+    // Check if user is logged in and has an AccessLevelID of 4 (Dean) or higher
+    return isLoggedIn() && isset($_SESSION['AccessLevelID']) && $_SESSION['AccessLevelID'] >= 4;
 }
 
 // Function to require login
@@ -30,7 +31,7 @@ function requireLogin() {
 function requireAdmin() {
     if (!isAdmin()) {
         $_SESSION['error'] = "You must be an administrator to access this page.";
-        header("Location: ../public/index.php");
+        header("Location: ../public/index.php"); // Or wherever unauthorized users should be redirected
         exit;
     }
 }
@@ -45,11 +46,11 @@ function getCurrentUser($conn) {
 
 // Function to set user session
 function setUserSession($user) {
-    $_SESSION['user_id'] = $user['UserID'];
-    $_SESSION['user_name'] = $user['FirstName'] . ' ' . $user['LastName'];
-    $_SESSION['user_email'] = $user['EmailAddress'];
-    $_SESSION['user_role'] = $user['UserRole'];
-    $_SESSION['user_access_level'] = $user['AccessLevel'];
+    $_SESSION['user_id'] = $user['id']; // Use new column name
+    $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name']; // Assuming these are fetched
+    $_SESSION['user_email'] = $user['email']; // Use new column name
+    $_SESSION['user_role'] = $user['role']; // Use new column name (still exists)
+    $_SESSION['AccessLevelID'] = $user['AccessLevelID']; // Use new column name
 }
 
 // Function to clear user session
