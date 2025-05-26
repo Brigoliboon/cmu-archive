@@ -4,9 +4,17 @@
         {
             "src": "admin/index.php",
             "use": "@vercel/php"
+        },
+        {
+            "src": "public/index.php",
+            "use": "@vercel/php"
         }
     ],
     "routes": [
+        {
+            "src": "^/$",
+            "dest": "public/index.php"
+        },
         {
             "src": "/(.*)",
             "dest": "admin/index.php"
