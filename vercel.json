@@ -1,27 +1,12 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "admin/index.php",
-            "use": "@vercel/php"
-        },
-        {
-            "src": "public/index.php",
-            "use": "@vercel/php"
-        }
-    ],
-    "routes": [
-        {
-            "src": "^/$",
-            "dest": "public/index.php"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "admin/index.php"
-        }
-    ],
-    "env": {
-        "APP_ENV": "production",
-        "APP_DEBUG": "false"
+  "version": 2,
+  "builds": [
+    { "src": "*.php", "use": "@vercel/php" }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/public"
     }
+  ]
 }
